@@ -12,11 +12,9 @@ document.getElementById("submit-button").addEventListener("click", function () {
     .then((data) => {
       // Temparature Output
       let icon = data.weather[0].icon;
-      console.log(icon);
       statusIcon.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
       const celsious = (((data.main.temp - 32) * 5) / 9).toFixed(2);
       temparature.innerText = celsious;
-      console.log(data);
       weatherCondition.innerText = data.weather[0].main;
       locationInput.value = "";
     });
