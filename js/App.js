@@ -1,14 +1,24 @@
+let weatherCondition = document.getElementById("condition");
+let temparature = document.getElementById("temparature");
+let city = document.getElementById("location");
 const secretkey = config.SECRET_KEY;
-const locationInput = document.getElementById('location-input').value;
-document.getElementById('submit-button').addEventListener('click',function () {
-const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locationInput}&appid=${secretkey}`
-fetch(apiUrl)
-.then(res => res.json())
-.then(data => {
-    console.log(data);
-})
-})
-// function loadWeatherData(){
-
-// }
-
+let locationInput = document.getElementById("location-input");
+document.getElementById("submit-button").addEventListener("click", function () {
+  city.innerText = locationInput.value;
+  let statusIcon = document.getElementById("status-icon");
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${locationInput.value}&appid=${secretkey}`;
+  fetch(apiUrl)
+    .then((res) => res.json())
+    .then((data) => {
+      // Temparature Output
+      let icon = data.weather[0].icon;
+      console.log(icon);
+      statusIcon.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+      const celsious = (((data.main.temp - 32) * 5) / 9).toFixed(2);
+      temparature.innerText = celsious;
+      console.log(data);
+      weatherCondition.innerText = data.weather[0].main;
+      locationInput.value = "";
+    });
+  // .catch(alert('This city is not in the map'))
+});
